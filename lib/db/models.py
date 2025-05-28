@@ -25,6 +25,36 @@ class Currency(Base):
         back_populates="target_currency",
     )
 
+    @classmethod
+    def create(cls, session, **kwargs):
+        currency = cls(**kwargs)
+        session.add(currency)
+        session.commit()
+        return currency
+
+    @classmethod
+    def get_all(cls, session):
+        return session.query(cls).all()
+    
+    @classmethod
+    def find_by_id(cls, session, id_):
+        return session.query(cls).filter_by(id=id_).first()
+
+    def delete(self, session):
+        session.delete(self)
+        session.commit()
+
+
+    def uppercase_code(self):
+        return self.code.upper()
+    
+    def __repr__(self):
+        return f"<Currency {self.code} ({self.name})>"
+    
+
+
+    
+
 
 class ExchangeRate(Base):
     __tablename__ = "exchange_rates"
@@ -40,3 +70,29 @@ class ExchangeRate(Base):
     target_currency = relationship(
         "Currency", foreign_keys=[target_currency_id], back_populates="target_rates"
     )
+
+
+    def create(cls, session, **kwargs):
+        rate = cls(**kwargs)
+        session.add(rate)
+        session.commit()
+        return rate
+    
+    @classmethod
+    def get_all(cls, session):
+        return session.query(cls).all()
+    
+    @classmethod
+    def find_by_id(cls, session, id_):
+        return session.query(cls).filter_by(id=id_).first()
+    
+    def delete(self, session):
+        session.delete(self)
+        session.commit()
+
+    @property
+    def formatted_rate(self):
+        return f"{float(self.rate):, .6f}"
+    
+    def __repr__(self):
+        return f"Exchangerate {self.base_currency.code} to {self.target_currency.code} @ {self.formatted_rate}"

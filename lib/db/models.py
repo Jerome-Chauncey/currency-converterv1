@@ -44,7 +44,7 @@ class Currency(Base):
         session.delete(self)
         session.commit()
 
-
+    @property
     def uppercase_code(self):
         return self.code.upper()
     

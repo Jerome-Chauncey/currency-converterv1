@@ -71,7 +71,7 @@ class ExchangeRate(Base):
         "Currency", foreign_keys=[target_currency_id], back_populates="target_rates"
     )
 
-
+    @classmethod
     def create(cls, session, **kwargs):
         rate = cls(**kwargs)
         session.add(rate)
@@ -95,4 +95,4 @@ class ExchangeRate(Base):
         return f"{float(self.rate):, .6f}"
     
     def __repr__(self):
-        return f"Exchangerate {self.base_currency.code} to {self.target_currency.code} @ {self.formatted_rate}"
+        return f"ExchangeRate {self.base_currency.code} to {self.target_currency.code} @ {self.formatted_rate}"

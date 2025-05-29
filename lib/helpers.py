@@ -24,6 +24,6 @@ def get_exchange_rate(session: Session, base_code: str, target_code: str) -> Exc
         return None
     
     return session.query(ExchangeRate).filter_by(
-        base_currency_id = base.id
-        target_currency_id = target.id
+        base_currency_id=base.id,
+        target_currency_id=target.id
     ).order_by(ExchangeRate.timestamp.desc()).first()

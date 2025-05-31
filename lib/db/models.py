@@ -92,7 +92,7 @@ class ExchangeRate(Base):
 
     @property
     def formatted_rate(self):
-        return f"{float(self.rate):, .6f}"
+        return f"{float(self.rate):,.6f}"
     
     def __repr__(self):
         return f"ExchangeRate {self.base_currency.code} to {self.target_currency.code} @ {self.formatted_rate}"

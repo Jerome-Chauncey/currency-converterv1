@@ -28,7 +28,7 @@ def main():
         elif choice == "6":
             delete_currency()
         else:
-            print("❌ Invalid choice. Please try again.")
+            print("Invalid choice. Please try again.")
 
 def menu():
     
